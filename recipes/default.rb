@@ -55,3 +55,11 @@ template '/etc/profile.d/nvm.sh' do
   source 'nvm.sh.erb'
   mode 0755
 end
+
+directory node['nvm']['directory'] do
+  mode '0775'
+end
+
+execute "change nvm directory and children to nvm group" do
+  command "sudo chgrp -R nvm #{node['nvm']['directory']}"
+end
